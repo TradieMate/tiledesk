@@ -2,6 +2,14 @@
 
 This guide will help you set up Tiledesk on Render using Docker Compose.
 
+## Render Compatibility
+
+This Docker Compose configuration has been specifically adapted for Render:
+
+1. **Port Configuration**: The main proxy service binds to the port specified by Render's `PORT` environment variable (default: 10000)
+2. **WebSocket Support**: The MQTT WebSocket connections use the `wss://` protocol for secure connections
+3. **External Database**: Uses an external MongoDB database instead of a container
+
 ## Prerequisites
 
 1. A Render account (https://render.com)
@@ -41,8 +49,15 @@ Since Tiledesk requires MongoDB, you'll need to set up a MongoDB database. The e
    - Environment: Docker
    - Docker Command: `docker-compose -f docker-compose/render-docker-compose.yml up`
    - Add all the environment variables from your `.env` file
+   - Render will automatically set the `PORT` environment variable (default: 10000)
 
 5. Click "Create Web Service"
+
+### Important Render-Specific Configuration Notes
+
+- The Docker Compose file is configured to use Render's `PORT` environment variable
+- Render automatically assigns a URL to your service, which you should use for the `EXTERNAL_BASE_URL` and `EXTERNAL_MQTT_BASE_URL` variables
+- Render handles the routing of HTTP and WebSocket traffic to your service
 
 ## Step 4: Verify the Deployment
 

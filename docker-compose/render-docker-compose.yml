@@ -138,7 +138,7 @@ services:
     image: tiledesk/tiledesk-docker-proxy:v1.1.2
     container_name: tiledesk-docker-proxy   
     ports:
-      - "8081:80" # specify port forewarding
+      - "${PORT:-10000}:80" # Use Render's PORT environment variable
     depends_on:
       - server
       - dashboard
